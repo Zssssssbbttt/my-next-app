@@ -1,0 +1,72 @@
+/* app/blog/[slug]/BlogPost.module.css */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.title {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0070f3;
+  padding-bottom: 10px;
+}
+
+.meta {
+  display: flex;
+  gap: 30px;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.content {
+  line-height: 1.8;
+  color: #333;
+}
+
+.paragraph {
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 28px;
+  color: #1a1a1a;
+  margin: 30px 0 15px;
+}
+
+.subtitle3 {
+  font-size: 22px;
+  color: #2a2a2a;
+  margin: 20px 0 10px;
+}
+
+.listItem {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.backLink {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.backLink:hover {
+  transform: translateX(-5px);
+}

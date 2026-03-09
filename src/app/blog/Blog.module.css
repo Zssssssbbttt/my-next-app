@@ -1,0 +1,110 @@
+/* app/blog/Blog.module.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.title {
+  font-size: 42px;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.content {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.postTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.postExcerpt {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.author {
+  color: #888;
+  font-size: 14px;
+}
+
+.readMore {
+  color: #0070f3;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.card:hover .readMore {
+  transform: translateX(5px);
+}

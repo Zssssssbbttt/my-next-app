@@ -1,0 +1,63 @@
+/* app/products/[id]/ProductDetail.module.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.breadcrumb {
+  margin-bottom: 30px;
+}
+
+.breadcrumb a {
+  color: #666;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #0070f3;
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.imageWrapper {
+  background: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.info h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.price {
+  font-size: 28px;
+  color: #0070f3;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.description {
+  color: #666;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .detail {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

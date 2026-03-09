@@ -1,0 +1,45 @@
+/* app/blog/[id]/NotFound.module.css */
+.container {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.card {
+  max-width: 500px;
+  text-align: center;
+  padding: 50px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.title {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.message {
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.backLink {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #0070f3;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.backLink:hover {
+  background: #0060df;
+  transform: translateX(-4px);
+}

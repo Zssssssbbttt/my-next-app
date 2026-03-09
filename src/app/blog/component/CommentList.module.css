@@ -1,0 +1,110 @@
+/* app/blog/components/CommentList.module.css */
+.container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-style: italic;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment {
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.comment:hover {
+  background: #f5f5f5;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.author {
+  color: #333;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.email {
+  color: #888;
+  font-size: 12px;
+}
+
+.commentActions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.date {
+  color: #999;
+  font-size: 12px;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: #c62828;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  opacity: 1;
+  background: #ffebee;
+}
+
+.deleteBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.content {
+  color: #444;
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .commentHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .commentActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
