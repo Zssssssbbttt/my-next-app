@@ -40,9 +40,11 @@ export async function getUserList() {
 export async function addUser({
   params,
 }: {
-  name: string;
-  email?: string;
-  age?: number;
+  params: {
+    name: string;
+    email?: string;
+    age?: number;
+  };
 }) {
 
   const path = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/users`;

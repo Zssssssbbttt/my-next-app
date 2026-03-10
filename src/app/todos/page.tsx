@@ -1,8 +1,8 @@
 // 页面 拼接 添加 删除等
 import styles from "./TodosPage.module.css";
-import TodoList from "./components/PageList.tsx";
+import TodoList from "./components/PageList";
 import { todos } from "./definitions";
-import TodoForm from "./components/PageForm.tsx";
+import TodoForm from "./components/PageForm";
 
 export default function TodosPage() {
   return (

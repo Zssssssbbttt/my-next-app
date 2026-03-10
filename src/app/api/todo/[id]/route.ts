@@ -5,10 +5,10 @@ import { successResponse, errorResponse } from "../utils";
 // GET /api/todos/[id] - 获取单个待办事项
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const todo = todos.find((t) => t.id === id);
     if (!todo) {
@@ -24,10 +24,10 @@ export async function GET(
 // PUT /api/todos/[id] - 更新待办事项
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = (await request.json()) as UpdateTodoInput;
 
     // 查询待办事项索引
@@ -62,10 +62,10 @@ export async function PUT(
 // PATCH /api/todos/[id] - 部分更新（例如切换完成状态）
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     // 查找待办事项索引
@@ -92,20 +92,20 @@ export async function PATCH(
 }
 
 // DELETE /api/todos/[id] - 删除待办事项
+// DELETE /api/todos/[id] - 删除待办事项
 export async function DELETE(
-  requesr: NextRequest,
-  { params }: { params: { id: string } },
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },  // ✅ 添加 Promise
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const deleteTodoIndex = todos.findIndex((t) => t.id === id);
     if (deleteTodoIndex === -1) {
-      return errorResponse("删除待办事项失败");
+      return errorResponse("删除待办事项不存在", 404);  // 建议添加状态码
     }
 
     const deleteTodo = todos[deleteTodoIndex];
-
     todos.splice(deleteTodoIndex, 1);
 
     return successResponse({
@@ -117,6 +117,7 @@ export async function DELETE(
     return errorResponse("删除待办事项失败", 500);
   }
 }
+
 
 // 处理不支持的HTTP方法
 export async function HEAD() {

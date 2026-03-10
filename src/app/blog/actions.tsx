@@ -64,7 +64,7 @@ export async function createComment(
       cteateAt: new Date().toISOString(),
     };
 
-    comments.push(newComment);
+    comments.push(newComment as unknown as typeof comments[number]);
 
     revalidatePath(`/blog/${postId}`);
 

@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import styles from "./CommentForm.module.css";
-import { createComment, type CommentFormState } from "../actions.tsx";
+import { createComment, type CommentFormState } from "../actions";
 
 export default function CommentForm({ postId }: { postId: string }) {
   const initialState: CommentFormState = {

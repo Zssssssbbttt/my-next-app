@@ -1,6 +1,6 @@
 // /api/user type -类型
 
-interface User {
+export interface User {
   id: string;
   name: string;
   age: string;

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { Todo } from "./type";
 
 export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substring(2);
@@ -15,7 +14,7 @@ export function successResponse<T>(data: T, status = 200) {
   );
 }
 
-export function errorResponse(message, status = 400) {
+export function errorResponse(message: string, status = 400) {
   return NextResponse.json(
     {
       success: false,
@@ -49,7 +48,7 @@ export function validateCreateTodo(input: any): {
 
    return {
     valid: errors.length === 0,
-    errors
+    error:errors as string[]
   }
 }
 

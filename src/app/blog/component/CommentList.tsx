@@ -28,14 +28,14 @@ export default function CommentList({
       return;
     }
 
-    setDeleting(commentId);
+    setDeleting(true);
 
     const formData = new FormData();
     formData.append("commentId", commentId);
     formData.append("postId", postId);
 
     await deleteComment({ formData });
-    setDeleting(null);
+    setDeleting(false);
   };
 
   if (comments.length === 0) {
@@ -67,9 +67,9 @@ export default function CommentList({
                 <button
                   onClick={() => handleDelete(comment.id)}
                   className={styles.deleteBtn}
-                  disabled={isDeleting === comment.id}
+                  disabled={isDeleting ? true : false}
                 >
-                  {isDeleting === comment.id ? "删除中..." : "删除"}
+                  {isDeleting === true ? "删除中..." : "删除"}
                 </button>
               </div>
             </div>

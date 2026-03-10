@@ -65,7 +65,7 @@ export default async function Blog() {
       <p className={styles.subtitle}>最新文章</p>
 
       <div className={styles.grid}>
-        {posts.map(async (post) => {
+        {posts.map(async (post:any) => {
           const user = await getUser(post.userId);
           return (
             <Link

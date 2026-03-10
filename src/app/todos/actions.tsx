@@ -15,7 +15,13 @@ const TodoSchema = z.object({
     .optional(),
 });
 
-export async function createTodo(prevState: any, formData) {
+type FormState = {
+  error: { title?: string[]; describe?: string[]; deadLine?: string[] };
+  message: string;
+  success: boolean;
+};
+
+export async function createTodo(prevState: FormState, formData: FormData): Promise<FormState> {
   try {
     const validateResult = TodoSchema.safeParse({
       title: formData.get("title")?.toString() || "",
@@ -40,22 +46,23 @@ export async function createTodo(prevState: any, formData) {
       deadLine,
     };
 
-    todos.push(newTodo);
+    todos.push(newTodo as unknown as typeof todos[number]);
 
     console.log("代办事项:", todos);
 
     revalidatePath("/todos");
 
     return {
+      error: {},
       message: "创建成功",
       success: true,
     };
   } catch (error) {
-    return (
-      <div>
-        <p>处理表单时发生错误。</p>
-      </div>
-    );
+    return {
+      error: {},
+      message: "处理表单时发生错误。",
+      success: false,
+    };
   }
 }
 

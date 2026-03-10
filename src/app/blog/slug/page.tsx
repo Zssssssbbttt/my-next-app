@@ -3,25 +3,18 @@ import { notFound } from "next/navigation";
 import styles from "./BlogSlug.module.css";
 import Link from "next/link";
 
-export default async function BlogPost({ params }) {
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   console.log(slug, "11111");
-
-  // 查找文章
-  const post = blogPosts.find((p) => p.slug === slug);
-
-  // 文章不存在返回not found
-  // if (!post) {
-  //   notFound();
-  // }
+  const post = blogPosts.find((p:any) => p.slug === slug);
 
   return (
     <div>
       <article className={styles.container}>
-        <h1 className={styles.title}>{post.title}</h1>
+        <h1 className={styles.title}>{post?.title}</h1>
 
         <div className={styles.content}>
-          {post.content.split("\n").map((paragraph, index) => {
+          {post?.content.split("\n").map((paragraph:string, index:number) => {
             // 简单的Markdown解析（实际项目可用marked等库）
             if (paragraph.startsWith("## ")) {
               return (

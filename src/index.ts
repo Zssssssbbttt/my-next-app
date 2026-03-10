@@ -18,7 +18,7 @@ class Computer {
   private specs: ComputerSpecs;
 
   // 私有构造函数
-  private constructor(builder: ComputerBuilder) {
+  private constructor(builder: any) {
     this.specs = builder.getSpecs();
   }
 
@@ -137,6 +137,7 @@ function demonstrateStaticBuilder(): void {
 
 
 interface PhoneSpecs{
+  name:string;
   color:string;
   size:string;
   hasLight:boolean;
@@ -148,7 +149,7 @@ interface PhoneSpecs{
 class Phone{
   private specs:PhoneSpecs
 
-  private constructor(builder:phoneBuilder) {
+  private constructor(builder:any) {
     this.specs = builder.getSpecs()
   }
 
@@ -157,7 +158,7 @@ class Phone{
   }
 
   display():string{
-    return `计算机配置:-name:${this.specs.name}
+    return `计算机配置:
     -颜色:${this.specs.color}
     -大小:${this.specs.size}
     -是否有灯:${this.specs.hasLight}
@@ -173,34 +174,23 @@ class Phone{
       this.specs={
         name,
         color,
+        size:'6.5英寸',
         hasLight:false,
         hasWifi:false,
-        gpu:'360核'
-      }
-
-      hasLight(light:Boolean){
-        this.specs.hasLight = light
-      }
-
-      hasWifi(wifi:Boolean){
-        this.specs.hasLight = wifi
-      }
-
-      gpu(gpu:Boolean){
-        this.specs.hasLight = gpu
-      }
-
-      getSpecs():PhoneBulder{
-        return {...this.specs}
-      }
-
-      build(){
-        return new Phone(this)
+        hasBluetooth:false,
+        gpu:'360核',
       }
 
 
+    }
 
 
+    getSpecs(){
+      return {...this.specs}
+    }
+
+    build(){
+      return new Phone(this)
     }
   }
 }

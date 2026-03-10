@@ -57,7 +57,7 @@ export default function UsersPage() {
     details?: string,
   ) => {
     const newLog: OperationLog = {
-      id: Date.now().toString(),
+      id: new Date().getTime().toString(),
       operation,
       username,
       timestamp: new Date().toLocaleString(),
@@ -116,11 +116,11 @@ export default function UsersPage() {
     if (editingUser) {
       // 更新用户
       result = await updateSingleUser(editingUser.id.toString(), params);
-      addLog("更新用户", result.success, formData.name, result.error);
+      addLog("更新用户", result.success ? "success" : "error", formData.name, result.error);
     } else {
       // 添加用户
       result = await addUser({ params });
-      addLog("添加用户", result.success, formData.name, result.error);
+      addLog("添加用户", result.success ? "success" : "error", formData.name, result.error);
     }
 
     if (result.success) {
@@ -150,7 +150,7 @@ export default function UsersPage() {
     }
 
     const result = await deleteSingleUser(user.id.toString());
-    addLog("删除用户", result.success, user.name, result.error);
+    addLog("删除用户", result.success ? "success" : "error", user.name, result.error);
 
     if (result.success) {
       alert("删除成功！");
@@ -219,7 +219,7 @@ export default function UsersPage() {
     const result = await getUserList();
 
     // 添加操作日志
-    addLog("获取用户列表", result.success, undefined, result.error);
+    addLog("获取用户列表", result.success ? "success" : "error", undefined, result.error);
 
     if (result.success) {
       setUsers(result.data.users || []);

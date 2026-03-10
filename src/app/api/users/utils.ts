@@ -6,7 +6,7 @@ export function generateId(): string {
 }
 
 // 成功响应
-export function successResponse(data: T, status = 200) {
+export function successResponse<T>(data: T, status = 200) {
   return NextResponse.json(
     {
       success: true,
@@ -39,7 +39,7 @@ const UserSchema = z.object({
   email: z.string().max(50, "描述不能超过50个字符").optional(),
 });
 
-export function validateResult(data) {
+export function validateResult(data: any) {
   console.log("验证信息 validateResult:", data);
   try {
     // 判断传入的是 FormData 还是普通对象
@@ -48,13 +48,13 @@ export function validateResult(data) {
     if (data instanceof FormData) {
       // 如果是 FormData，使用 get 方法
       validationData = {
-        name: data.get("name")?.toString() || "",
+        title: data.get("name")?.toString() || "",
         age: data.get("age")?.toString() || "",
         email: data.get("email")?.toString() || "",
       };
     } else {
       validationData = {
-        name: data.name || data.title || "", // 注意：打印显示是 name，但验证用的是 title
+        title: data.name || data.title || "", // 注意：打印显示是 name，但验证用的是 title
         age: data.age?.toString() || "",
         email: data.email || "",
       };

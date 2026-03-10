@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { User } from './types';
+import { User } from './type';
 
 // 定义数据文件路径
 const dataFilePath = path.join(process.cwd(), 'data', 'users.json');

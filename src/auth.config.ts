@@ -1,5 +1,6 @@
 // auth.config.ts
 
+import NextAuth from "next-auth";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
@@ -38,7 +39,7 @@ export const authConfig = {
         email: { label: "邮箱", type: "email" },
         password: { label: "密码", type: "password" },
       },
-      async authorize(credentials: { email: string; password: string }) {
+      async authorize(credentials){
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -74,14 +75,15 @@ export const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as any).role;
+        token.role = (user as unknown as { role: string }).role as string;
       }
       return token;
     },
     async session({ session, token }) {
       if (session?.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as string;
+        // 使用类型断言
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role;
       }
       return session;
     },
@@ -100,3 +102,5 @@ export const authConfig = {
   // 开启调试模式，方便排查问题
   debug: process.env.NODE_ENV === "development",
 } satisfies NextAuthConfig;
+
+export const { handlers, auth } = NextAuth(authConfig);

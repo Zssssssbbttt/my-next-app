@@ -5,120 +5,119 @@ import { successResponse, errorResponse } from "../utils";
 // GET /api/users/[id] - 获取单个用户信息
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },  // ✅ Next.js 15
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;  // ✅ 需要 await
 
-    const todo = userList.find((t) => t.id === id);
-    if (!todo) {
-      return errorResponse("待办事项不存在", 404);
+    const user = userList.find((u) => u.id === id);
+    if (!user) {
+      return errorResponse("用户不存在", 404);
     }
-    return successResponse(todo);
+    return successResponse(user);
   } catch (error) {
-    console.error("GET /api/todos/[id] error:", error);
-    return errorResponse("代办事项不存在", 500);
+    console.error("GET /api/users/[id] error:", error);
+    return errorResponse("获取用户失败", 500);
   }
 }
 
-// PUT /api/todos/[id] - 更新待办事项
+// PUT /api/users/[id] - 更新用户信息
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },  // ✅ Next.js 15
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;  // ✅ 需要 await
     const body = (await request.json()) as UpdateUser;
 
-    // 查询待办事项索引
-    const userIndex = userList.findIndex((t) => t.id === id);
+    // 查询用户索引
+    const userIndex = userList.findIndex((u) => u.id === id);
 
     if (userIndex === -1) {
-      return errorResponse("待办事项不存在", 400);
+      return errorResponse("用户不存在", 404);
     }
 
-    // 验证输入（简化版）
+    // 验证输入（根据用户字段调整）
     if (
-      body.title &&
-      (typeof body.title !== "string" || body.title.length < 2)
+      body.name &&
+      (typeof body.name !== "string" || body.name.length < 2)
     ) {
-      return errorResponse("标题至少需要2个字符", 400);
+      return errorResponse("用户名至少需要 2 个字符", 400);
     }
 
-    const updateTodo = {
+    const updatedUser = {
       ...userList[userIndex],
       ...body,
-      updateAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),  // ✅ 统一为 updatedAt
     };
 
-    userList[userIndex] = updateTodo;
-    return successResponse(updateTodo);
+    userList[userIndex] = updatedUser;
+    return successResponse(updatedUser);
   } catch (error) {
     console.error("PUT /api/users/[id] error:", error);
-    return errorResponse("更新待办事项失败", 400);
+    return errorResponse("更新用户失败", 500);
   }
 }
 
-// PATCH /api/todos/[id] - 部分更新（例如切换完成状态）
+// PATCH /api/users/[id] - 部分更新用户信息
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },  // ✅ Next.js 15
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;  // ✅ 需要 await
     const body = await request.json();
 
-    // 查找待办事项索引
-    const userIndex = userList.findIndex((t) => t.id === id);
+    // 查找用户索引
+    const userIndex = userList.findIndex((u) => u.id === id);
 
     if (userIndex === -1) {
-      return errorResponse("待办事项不存在", 404);
+      return errorResponse("用户不存在", 404);
     }
 
     // 只更新提供的字段
-    const updatedTodo = {
+    const updatedUser = {
       ...userList[userIndex],
       ...body,
       updatedAt: new Date().toISOString(),
     };
 
-    userList[userIndex] = updatedTodo;
+    userList[userIndex] = updatedUser;
 
-    return successResponse(updatedTodo);
+    return successResponse(updatedUser);
   } catch (error) {
-    console.error("PATCH /api/todos/[id] error:", error);
-    return errorResponse("更新待办事项失败", 500);
+    console.error("PATCH /api/users/[id] error:", error);
+    return errorResponse("更新用户失败", 500);
   }
 }
 
-// DELETE /api/todos/[id] - 删除待办事项
+// DELETE /api/users/[id] - 删除用户
 export async function DELETE(
-  requesr: NextRequest,
-  { params }: { params: { id: string } },
+  request: NextRequest,  // ✅ 修复拼写错误
+  { params }: { params: Promise<{ id: string }> },  // ✅ Next.js 15
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;  // ✅ 需要 await
 
-    const deleteUserIndex = userList.findIndex((t) => t.id === id);
+    const deleteUserIndex = userList.findIndex((u) => u.id === id);
     if (deleteUserIndex === -1) {
-      return errorResponse("删除待办事项失败");
+      return errorResponse("用户不存在", 404);
     }
 
-    const deleteTodo = userList[deleteUserIndex];
-
+    const deletedUser = userList[deleteUserIndex];
     userList.splice(deleteUserIndex, 1);
 
     return successResponse({
       message: "删除成功",
-      deleteTodo,
+      deletedUser,  // ✅ 变量名改为 deletedUser
     });
   } catch (error) {
     console.error("DELETE /api/users/[id] error:", error);
-    return errorResponse("删除待办事项失败", 500);
+    return errorResponse("删除用户失败", 500);
   }
 }
 
-// 处理不支持的HTTP方法
+// 处理不支持的 HTTP 方法
 export async function HEAD() {
   return errorResponse("Method not allowed", 405);
 }

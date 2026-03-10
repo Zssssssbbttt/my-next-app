@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  
   images: {
     domains: ["picsum.photos"], // 允许加载图片的域名
     formats: ["image/avif", "image/webp"],

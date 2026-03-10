@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     //   按状态查询
     if (complete !== null) {
       const isComplete = complete === "true";
-      filterTodos = filterTodos.filter((item) => item.complete === isComplete);
+      filterTodos = filterTodos.filter((item) => item.completed === isComplete);
     }
 
     // 按搜索条件查询
@@ -30,15 +30,15 @@ export async function GET(request: NextRequest) {
         (todo) =>
           todo.title.toLowerCase().includes(search.toLocaleLowerCase()) ||
           (todo.description &&
-            todo.descripition
+            todo.description
               .toLowerCase()
-              .include(search.toLocaleLowerCase())),
+              .includes(search.toLocaleLowerCase())),
       );
     }
 
     //   排序最新日期的排在前面
     filterTodos.sort((a, b) => {
-      new Date(b.createAt).getTime() - new Date(a.createAt).getTime();
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
     const start = (page - 1) * limit;

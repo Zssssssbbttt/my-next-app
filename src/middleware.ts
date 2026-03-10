@@ -1,9 +1,8 @@
 // middleware.ts
 
 import { NextResponse } from "next/server";
-import type { NextResponse } from "next/server";
 
-export function middleware(request: NextResponse) {
+export function middleware(request: any) {
   // 获取路径
   const path = request.nextUrl.pathname;
 

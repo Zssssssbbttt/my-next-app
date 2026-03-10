@@ -1,28 +1,29 @@
+
 // app/blog/[id]/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./BlogPost.module.css";
 import CommentList from "../component/CommentList";
-import { comments } from "../definitions";
+import { comments, Comment } from "../definitions";
 import CommentForm from "../component/CommentForm";
 
 // 获取单篇文章
 async function getPost(id: string) {
-  console.log("博客详情id", id);
+  console.log("博客详情 id", id);
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
     next: { revalidate: 3600 },
   });
 
   if (!res.ok) {
-    return null; // 返回null，触发notFound
+    return null;
   }
 
   return res.json();
 }
 
 // 获取当前文章的评论
-async function getCommentsForPost(postId: string): Promise<Comments[]> {
+async function getCommentsForPost(postId: string): Promise<Comment[]> {  // ✅ 改为 Comment
   return comments.filter((comment) => comment.postId === postId);
 }
 
@@ -43,9 +44,13 @@ async function getUser(userId: number) {
   return res.json();
 }
 
-// 生成metadata
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const { id } = await params;
+// 生成 metadata
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ id: string }>  // ✅ Next.js 15
+}) {
+  const { id } = await params;  // ✅ 需要 await
   const post = await getPost(id);
 
   if (!post) {
@@ -60,21 +65,24 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-export default async function BlogPost({ params }: { params: { id: string } }) {
-  const { id } = await params;
+export default async function BlogPost({ 
+  params 
+}: { 
+  params: Promise<{ id: string }>  // ✅ Next.js 15
+}) {
+  const { id } = await params;  // ✅ 需要 await
   const post = await getPost(id);
 
   if (!post) {
-    notFound(); // 触发404
+    notFound();
   }
 
-  const [user, comments] = await Promise.all([
+  const [user, postComments] = await Promise.all([
     getUser(post.userId),
     getCommentsForPost(id),
   ]);
 
-
-
+  // 避免变量名冲突（comments 已导入）
   return (
     <article className={styles.container}>
       {/* 返回链接 */}
@@ -93,7 +101,7 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
             </div>
           )}
           <div className={styles.stats}>
-            <span>💬 {comments.length} 条评论</span>
+            <span>💬 {postComments.length} 条评论</span>
           </div>
         </div>
       </header>
@@ -113,14 +121,12 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
       {/* 文章内容 */}
       <div className={styles.content}>
         <p className={styles.body}>{post.body}</p>
-        <p className={styles.body}>{post.body}</p>
-        <p className={styles.body}>{post.body}</p>
       </div>
 
       {/* 评论区 */}
       <section className={styles.comments}>
         <CommentForm postId={id} />
-        <CommentList comments={comments} postId={id} />
+        <CommentList comments={postComments} postId={id} />
       </section>
     </article>
   );
