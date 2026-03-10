@@ -1,5 +1,4 @@
 // 电脑接口
-import {build} from "effect/Layer";
 
 interface ComputerSpecs {
   cpu: string;
