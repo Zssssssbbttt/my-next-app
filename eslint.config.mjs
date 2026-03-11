@@ -13,10 +13,11 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
-  {rules: {
-    // 这里可以自定义你的规则
-    "@typescript-eslint/no-unused-vars": "off", // 如果需要关闭未使用变量的检查
-  }
-},]);
+//   {rules: {
+//     // 这里可以自定义你的规则
+//     "@typescript-eslint/no-unused-vars": "off", // 如果需要关闭未使用变量的检查
+//   }
+// }
+,]);
 
 export default eslintConfig;
