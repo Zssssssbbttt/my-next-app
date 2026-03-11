@@ -11,6 +11,9 @@ importers:
       '@prisma/client':
         specifier: ^6.19.2
         version: 6.19.2(prisma@6.19.2(typescript@5.9.3))(typescript@5.9.3)
+      effect:
+        specifier: ^3.19.19
+        version: 3.19.19
       next:
         specifier: 16.1.4
         version: 16.1.4(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -1015,6 +1018,9 @@ packages:
 
   effect@3.18.4:
     resolution: {integrity: sha512-b1LXQJLe9D11wfnOKAk3PKxuqYshQ0Heez+y5pnkd3jLj1yx9QhM72zZ9uUrOQyNvrs2GZZd/3maL0ZV18YuDA==}
+
+  effect@3.19.19:
+    resolution: {integrity: sha512-Yc8U/SVXo2dHnaP7zNBlAo83h/nzSJpi7vph6Hzyl4ulgMBIgPmz3UzOjb9sBgpFE00gC0iETR244sfXDNLHRg==}
 
   electron-to-chromium@1.5.307:
     resolution: {integrity: sha512-5z3uFKBWjiNR44nFcYdkcXjKMbg5KXNdciu7mhTPo9tB7NbqSNP2sSnGR+fqknZSCwKkBN+oxiiajWs4dT6ORg==}
@@ -3052,6 +3058,11 @@ snapshots:
       gopd: 1.2.0
 
   effect@3.18.4:
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      fast-check: 3.23.2
+
+  effect@3.19.19:
     dependencies:
       '@standard-schema/spec': 1.1.0
       fast-check: 3.23.2
